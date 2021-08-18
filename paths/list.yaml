@@ -1,0 +1,18 @@
+get:
+  description: list all workbenches
+  operationId: listWorkbenches
+  responses:
+    '200':
+      description: list workbenches
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../responses/Workbench.yaml'
+    default:
+      description: unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/Error.yaml'

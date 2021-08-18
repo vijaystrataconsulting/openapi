@@ -1,0 +1,16 @@
+get:
+  description: Get workspace liveness
+  operationId: workspaceLiveness
+  responses:
+    '200':
+      description: workspace is live
+      content:
+        text/plain:
+          schema:
+            type: string
+    default:
+      description: unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/Error.yaml'

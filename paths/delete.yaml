@@ -1,0 +1,23 @@
+post:
+  description: delete a workbench
+  requestBody:
+    operationId: deleteWorkbench
+    description: Configuration for delete workbench action
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../schemas/deleteConfig.yaml'
+  responses:
+    '200':
+      description: workbench delete successfully
+      content:
+        application/json:
+          schema:
+            $ref: '../responses/Workbench.yaml'
+    default:
+      description: unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/Error.yaml'

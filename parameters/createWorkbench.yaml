@@ -1,0 +1,6 @@
+description: Configuration for create workbench action
+required: true
+content:
+  application/json:
+    schema:
+      $ref: "../schemas/createWorkbench.yaml"

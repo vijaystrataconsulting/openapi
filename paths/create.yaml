@@ -1,0 +1,18 @@
+post:
+  summary: Create a new workbench
+  operationId: createWorkbench
+  requestBody:
+    $ref: "../parameters/createWorkbench.yaml"
+  responses:
+    '200':
+      description: workbench created successfully
+      content:
+        application/json:
+          schema:
+            $ref: '../responses/Workbench.yaml' 
+    default:
+      description: unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/Error.yaml'

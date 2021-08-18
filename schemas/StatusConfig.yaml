@@ -1,0 +1,6 @@
+StatusConfig:
+  required:
+    - name  
+  properties:
+    name:
+      type: string

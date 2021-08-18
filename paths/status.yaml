@@ -1,0 +1,23 @@
+post:
+  operationId: getWorkbenchStatus
+  description: retrieve workbench status
+  requestBody:
+    description: Configuration for get workbench action
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../schemas/StatusConfig.yaml'
+  responses:
+    '200':
+      description: workbench status retrieved successfully
+      content:
+        application/json:
+          schema:
+            $ref: '../responses/Workbench.yaml'
+    default:
+      description: unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/Error.yaml'

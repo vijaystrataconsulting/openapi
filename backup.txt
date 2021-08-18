@@ -1,0 +1,220 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Provisioner API
+  description: API specification for provisioner service
+paths:
+  /create:
+    post:
+      description: |
+        Create a new workbench
+      requestBody:
+        description: Configuration for create workbench action
+        required: true
+        content:
+          application/json:
+            schema:
+              #$ref: "#/components/schemas/CreateConfig"
+              $ref: "#/components/schemas/CreateDeploymentConfig"
+      operationId: createWorkbench
+      responses:
+        '200':
+          description: workbench created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workbench'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /list:
+    get:
+      description: |
+        list all workbenches
+      operationId: listWorkbenches
+      responses:
+        '200':
+          description: list workbenches
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Workbench'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /delete:
+    post:
+      description: |
+        delete a workbench
+      requestBody:
+        description: Configuration for delete workbench action
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeleteConfig"
+      operationId: deleteWorkbench
+      responses:
+        '200':
+          description: workbench delete successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workbench'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /status:
+    post:
+      description: |
+        retrieve workbench status
+      requestBody:
+        description: Configuration for get workbench action
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StatusConfig"
+      operationId: getWorkbenchStatus
+      responses:
+        '200':
+          description: workbench status retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workbench'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /ready:
+    get:
+      description: |
+        Get workspace readiness
+      operationId: workspaceReadiness
+      responses:
+        '200':
+          description: workspace is ready
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: unexpected error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /live:
+    get:
+      description: |
+        Get workspace liveness
+      operationId: workspaceLiveness
+      responses:
+        '200':
+          description: workspace is live
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    CreateDeploymentConfig:
+      type: object
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: object
+        metadata:
+          $ref": '#/components/schemas/metadata'
+        spec:
+          $ref": '#/components/schemas/spec'
+        status:
+          $ref": '#/components/schemas/status'
+    spec:
+      required:
+       - chart
+      properties:
+        chart:
+          type: string 
+        values:
+          type: object
+    metadata:
+      required:
+        - name
+      properties:
+        name:
+          type: string
+    status:      
+    CreateConfig:
+      required:
+        - name  
+      properties:
+        name:
+          type: string
+        chart:
+          type: string
+        values:
+          type: object
+    DeleteConfig:
+      required:
+        - name  
+      properties:
+        name:
+          type: string
+    StatusConfig:
+      required:
+        - name  
+      properties:
+        name:
+          type: string
+    Workbench:
+      required:
+        - name
+        - create_date
+        - values
+        - notes
+      properties:
+        name:
+          type: string
+        create_date:
+          type: string
+        values:
+          type: object
+        notes:
+          type: string
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+
+
+oapi-codegen -config ./api/server.cfg.yaml api-spec.yaml
+oapi-codegen -config ./api/types.cfg.yaml api-spec.yaml

@@ -1,0 +1,16 @@
+get:
+  description: Get workspace readiness
+  operationId: workspaceReadiness
+  responses:
+    '200':
+      description: workspace is ready
+      content:
+        text/plain:
+          schema:
+            type: string
+    default:
+      description: unexpected error
+      content:
+        text/plain:
+          schema:
+            $ref: '../schemas/Error.yaml'

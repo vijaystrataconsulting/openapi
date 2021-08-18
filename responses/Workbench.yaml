@@ -1,0 +1,15 @@
+Workbench:
+  required:
+    - name
+    - create_date
+    - values
+    - notes
+  properties:
+    name:
+      type: string
+    create_date:
+      type: string
+    values:
+      type: object
+    notes:
+      type: string

@@ -1,0 +1,20 @@
+openapi: "3.0.0"
+info:
+  version: 1.1.0
+  title: Provisioner API
+  description: API specification for provisioner service
+servers:
+  - url: https://provisioner.bms.strataconsulting.io
+paths:
+  /create:
+    $ref: "./paths/create.yaml"
+  /list:
+    $ref: "./paths/list.yaml"
+  /delete:
+    $ref: "./paths/delete.yaml"
+  /status:
+    $ref: "./paths/status.yaml"
+  /ready:
+    $ref: "./paths/ready.yaml"
+  /live:
+    $ref: "./paths/live.yaml" 
